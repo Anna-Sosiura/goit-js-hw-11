@@ -54,12 +54,12 @@ async function handleForm(event) {
     totalHits = response.data.totalHits;
     const hits = response.data.hits;
     
-    if (hits.length !== 0) {
+    if (hits.length === 0) {
+      Notify.failure('Sorry. Try again, please');
+    } else {
       Notify.success(`Hooray! We found ${totalHits} images.`);
       createMarkup(hits);
       loadMoreBtn.classList.replace('is-hidden','load-more');
-    } else {
-      Notify.failure('Sorry. Try again, please');
     }
     searchForm.value = '';
   } catch (error) {
