@@ -20,7 +20,6 @@ const searchForm = document.querySelector('.search-form');
 const loadMoreBtn=document.querySelector('.load-more');
 searchForm.addEventListener('submit', handleForm);
 loadMoreBtn.addEventListener('click', loadMore);
-window.addEventListener('scroll', scroll);
 loadMoreBtn.classList.add('is-hidden');
 loadMoreBtn.classList.replace('load-more','is-hidden');
 
@@ -56,6 +55,7 @@ async function handleForm(event) {
     
     if (hits.length === 0) {
       Notify.failure('Sorry. Try again, please');
+      loadMoreBtn.classList.replace('load-more','is-hidden');
     } else {
       Notify.success(`Hooray! We found ${totalHits} images.`);
       createMarkup(hits);
@@ -127,13 +127,3 @@ async function loadMore() {
     isLoadMore = false;
   }
 }
-
-function scroll(){
-  const { height: cardHeight } = document
-    .querySelector(".gallery")
-    .firstElementChild.getBoundingClientRect();
-  
-  window.scrollBy({
-    top: cardHeight * 500,
-    behavior: "smooth",
-  });}
